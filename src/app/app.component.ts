@@ -1,7 +1,5 @@
 import {Component} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {Pet} from './pet';
-import {Observable} from 'rxjs';
 import {PetService} from './pet.service';
 
 
@@ -12,22 +10,25 @@ import {PetService} from './pet.service';
 })
 export class AppComponent  {
   readonly ROOT_URL = 'https://petstore.swagger.io/v2/pet/';
-  petIdForGet: number;
-  petIdForCreate: number;
-  petIdForUpdate: number;
-  petIdForDelete: number;
-  namePetForCreate = '';
-  namePetForUpdate = '';
-  statusPetForCreate = '';
-  statusPetForUpdate = '';
-  response: Pet;
+  // Для полей ввода данных 'ID'//
+  petIdForGet: number; // Получение //
+  petIdForCreate: number; // Создание //
+  petIdForUpdate: number; // Изменение //
+  petIdForDelete: number; // Удаление //
+  // Для полей ввода данных 'Name' //
+  namePetForCreate = ''; // Создание //
+  namePetForUpdate = ''; // Изменение //
+  // Для полей ввода данных 'Status' //
+  statusPetForCreate = ''; // Создание //
+  statusPetForUpdate = ''; // Изменение //
+  // Для обработки ошибок //
   error: any;
-  newPetForCrate: Pet;
-  newPetForUpdate: Pet;
+  // Для вывода результата из subscribe //
+  petForGet: Pet; // Получение //
+  petForCreate: Pet; // Создание //
+  petForUpdate: Pet; // Изменение //
 
-  pet: Pet;
-
-  constructor(private petService: PetService, private http: HttpClient) {}
+  constructor(private petService: PetService) {}
 
   // getAllPets() {
   //   for (let i = 0; i < 9; i++) {
@@ -38,35 +39,38 @@ export class AppComponent  {
   //   }
   // }
 
+  // Получение одного питомца //
   getPet() {
-    this.petService.getPet(this.petIdForGet).subscribe(pet => this.pet = pet);
+    this.petService.getPet(this.petIdForGet).subscribe(pet => this.petForGet = pet, error1 => this.error = error1.message);
   }
 
+  // Создание одного питомца //
   createPet() {
-    const data: { name: string; id: number; status: string } = {
+    // Новый Питомец //
+    const dataForCrate: Pet = {
+      category: undefined,
+      photoUrls: '',
+      tags: [],
       id: this.petIdForCreate,
       name: this.namePetForCreate,
       status: this.statusPetForCreate
     };
-    this.http.post<Pet>(this.ROOT_URL, data).subscribe(result => {
-      this.newPetForCrate = result;
-    });
+    this.petService.createPet(dataForCrate).subscribe(pet => this.petForCreate = pet);
   }
 
+  // Изменение одного питомца //
   updatePet() {
-    const data1: { name: string; id: any; status: string } = {
-      id: this.response.id,
+    // Измененый питомец //
+    const dataForUpdate: Pet = {
+      id: this.petIdForUpdate,
       name: this.namePetForUpdate,
       status: this.statusPetForUpdate
-    };
-    this.http.post<Pet>(this.ROOT_URL, data1).subscribe(result => {
-       this.newPetForUpdate = result;
-    });
+    } as Pet;
+    this.petService.updatePet(dataForUpdate).subscribe(pet => this.petForUpdate = pet);
   }
 
+  // Удаление одного питомца //
   deletePet() {
-    this.http.delete<Pet>(this.ROOT_URL + this.petIdForDelete).subscribe(result => {
-      console.log(result);
-    });
+    this.petService.deletePet(this.petIdForDelete);
   }
 }

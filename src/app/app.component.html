@@ -1,5 +1,4 @@
 <h1>PET STORE</h1>
-
 <!--<div>-->
 <!--<ul>-->
 <!--  <button (click)="getAllPets()">All</button>-->
@@ -8,23 +7,19 @@
 <!--  </li>-->
 <!--</ul>-->
 <!--</div>-->
-
-
-
 <br>
 <br>
 
 Pet ID: <input type="text" [(ngModel)]="petIdForGet">
 <button (click)="getPet()">Get</button>
 <div *ngIf="error">{{error}}</div>
-<div *ngIf="pet">
-  <img src="{{pet.photoUrls}}" alt="">
-  <p>ID: {{pet.id}}</p>
-  <p>Имя: {{pet?.name}}</p>
-  <p *ngFor="let tag of pet.tags">Тег: {{tag.name}}</p>
-  <p>Статус: {{pet.status}}</p>
+<div *ngIf="petForGet">
+  <img src="{{petForGet.photoUrls}}" alt="">
+  <p>ID: {{petForGet.id}}</p>
+  <p>Имя: {{petForGet?.name}}</p>
+  <p *ngFor="let tag of petForGet.tags">Тег: {{tag.name}}</p>
+  <p>Статус: {{petForGet.status}}</p>
 </div>
-
 
 <br>
 <br>
@@ -37,14 +32,17 @@ Status: <select [(ngModel)]="statusPetForCreate">
   <option>sold</option>
 </select>
 <button (click)="createPet()">Create</button>
+
 <br>
-<div *ngIf="newPetForCrate">
-  Object with ID: {{newPetForCrate ? newPetForCrate.id : '' }} create.
+
+<div *ngIf="petForCreate">
+  Object with ID: {{petForCreate.id}} create.
 </div>
 
+<br>
 
 <br>
-<br>
+
 ID: <input type="text" [(ngModel)]="petIdForUpdate">
 Name: <input type="text" [(ngModel)]="namePetForUpdate">
 Status: <select [(ngModel)]="statusPetForUpdate">
@@ -54,8 +52,8 @@ Status: <select [(ngModel)]="statusPetForUpdate">
 </select>
 <button (click)="updatePet()">Update</button>
 <br>
-<div *ngIf="newPetForUpdate">
-  Object with ID: {{newPetForUpdate ? newPetForUpdate.id : '' }} update.
+<div *ngIf="petForUpdate">
+  Object with ID: {{petForUpdate.id}} update.
 </div>
 
 <br>
