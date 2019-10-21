@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Pet} from './pet';
 import {Observable} from 'rxjs';
+import {PetService} from './pet.service';
 
 
 @Component({
@@ -24,25 +25,21 @@ export class AppComponent  {
   newPetForCrate: Pet;
   newPetForUpdate: Pet;
 
+  pet: Pet;
 
-  constructor(private http: HttpClient) {}
+  constructor(private petService: PetService, private http: HttpClient) {}
 
-  getAllPets() {
-    for (let i = 0; i < 9; i++) {
-      this.http.get<Pet>(this.ROOT_URL + i).subscribe((response) => this.response = response, error => {
-        this.error = error.message;
-        console.log(error);
-      });
-    }
-  }
+  // getAllPets() {
+  //   for (let i = 0; i < 9; i++) {
+  //     this.http.get<Pet>(this.ROOT_URL + i).subscribe((response) => this.response = response, error => {
+  //       this.error = error.message;
+  //       console.log(error);
+  //     });
+  //   }
+  // }
 
-  getPets() {
-    this.http.get<Pet>(this.ROOT_URL + this.petIdForGet).subscribe((response: Pet) => {
-      this.response = response;
-      console.log(response);
-    }, error1 => {
-      this.error = error1.message;
-    });
+  getPet() {
+    this.petService.getPet(this.petIdForGet).subscribe(pet => this.pet = pet);
   }
 
   createPet() {

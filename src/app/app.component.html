@@ -1,13 +1,13 @@
 <h1>PET STORE</h1>
 
-<div>
-<ul>
-  <button (click)="getAllPets()">All</button>
-  <li>
-    <!--<b>{{response.name}}</b>-->
-  </li>
-</ul>
-</div>
+<!--<div>-->
+<!--<ul>-->
+<!--  <button (click)="getAllPets()">All</button>-->
+<!--  <li>-->
+<!--    &lt;!&ndash;<b>{{response.name}}</b>&ndash;&gt;-->
+<!--  </li>-->
+<!--</ul>-->
+<!--</div>-->
 
 
 
@@ -15,14 +15,14 @@
 <br>
 
 Pet ID: <input type="text" [(ngModel)]="petIdForGet">
-<button (click)="getPets()">Get</button>
+<button (click)="getPet()">Get</button>
 <div *ngIf="error">{{error}}</div>
-<div *ngIf="response">
-  <img src="{{response.photoUrls}}" alt="">
-  <p>ID: {{response.id}}</p>
-  <p>Имя: {{response?.name}}</p>
-  <p *ngFor="let tag of response.tags">Тег: {{tag.name}}</p>
-  <p>Статус: {{response.status}}</p>
+<div *ngIf="pet">
+  <img src="{{pet.photoUrls}}" alt="">
+  <p>ID: {{pet.id}}</p>
+  <p>Имя: {{pet?.name}}</p>
+  <p *ngFor="let tag of pet.tags">Тег: {{tag.name}}</p>
+  <p>Статус: {{pet.status}}</p>
 </div>
 
 
