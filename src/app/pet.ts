@@ -1,9 +1,11 @@
-export class Pet {
-  name: string;
-  id: number;
+import {Tag} from './tag';
+import {Category} from './category';
 
-  constructor(name: string, id: number) {
-    this.name = name;
-    this.id = id;
-  }
+export interface Pet {
+  id: number;
+  category: Category;
+  name: string;
+  photoUrls: string;
+  tags: Tag[];
+  status: string;
 }

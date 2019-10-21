@@ -1,0 +1,69 @@
+<h1>PET STORE</h1>
+
+<div>
+<ul>
+  <button (click)="getAllPets()">All</button>
+  <li>
+    <!--<b>{{response.name}}</b>-->
+  </li>
+</ul>
+</div>
+
+
+
+<br>
+<br>
+
+Pet ID: <input type="text" [(ngModel)]="petIdForGet">
+<button (click)="getPets()">Get</button>
+<div *ngIf="error">{{error}}</div>
+<div *ngIf="response">
+  <img src="{{response.photoUrls}}" alt="">
+  <p>ID: {{response.id}}</p>
+  <p>Имя: {{response?.name}}</p>
+  <p *ngFor="let tag of response.tags">Тег: {{tag.name}}</p>
+  <p>Статус: {{response.status}}</p>
+</div>
+
+
+<br>
+<br>
+
+ID: <input type="text" [(ngModel)]="petIdForCreate">
+Name: <input type="text" [(ngModel)]="namePetForCreate">
+Status: <select [(ngModel)]="statusPetForCreate">
+  <option>available</option>
+  <option>pending</option>
+  <option>sold</option>
+</select>
+<button (click)="createPet()">Create</button>
+<br>
+<div *ngIf="newPetForCrate">
+  Object with ID: {{newPetForCrate ? newPetForCrate.id : '' }} create.
+</div>
+
+
+<br>
+<br>
+ID: <input type="text" [(ngModel)]="petIdForUpdate">
+Name: <input type="text" [(ngModel)]="namePetForUpdate">
+Status: <select [(ngModel)]="statusPetForUpdate">
+  <option>available</option>
+  <option>pending</option>
+  <option>sold</option>
+</select>
+<button (click)="updatePet()">Update</button>
+<br>
+<div *ngIf="newPetForUpdate">
+  Object with ID: {{newPetForUpdate ? newPetForUpdate.id : '' }} update.
+</div>
+
+<br>
+
+Pet ID(DELETE): <input type="text" [(ngModel)]="petIdForDelete">
+<button (click)="deletePet()">Delete</button>
+
+
+
+
+
