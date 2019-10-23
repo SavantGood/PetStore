@@ -4,7 +4,8 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import {PetService} from './pet.service';
+import {PetService} from './services/pet.service';
+import {StoreService} from './services/store.service';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,7 @@ import {PetService} from './pet.service';
     FormsModule,
     HttpClientModule
   ],
-  providers: [PetService],
+  providers: [PetService, StoreService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

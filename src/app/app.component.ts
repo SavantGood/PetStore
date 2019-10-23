@@ -1,6 +1,9 @@
 import {Component} from '@angular/core';
-import {Pet} from './pet';
-import {PetService} from './pet.service';
+import {Pet} from './models/pet';
+import {PetService} from './services/pet.service';
+import {StoreService} from './services/store.service';
+import {Order} from './models/order';
+import {HttpErrorResponse} from '@angular/common/http';
 
 
 @Component({
@@ -9,26 +12,51 @@ import {PetService} from './pet.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent  {
-  readonly ROOT_URL = 'https://petstore.swagger.io/v2/pet/';
-  // Для полей ввода данных 'ID'//
-  petIdForGet: number; // Получение //
-  petIdForCreate: number; // Создание //
-  petIdForUpdate: number; // Изменение //
-  petIdForDelete: number; // Удаление //
-  // Для полей ввода данных 'Name' //
-  namePetForCreate = ''; // Создание //
-  namePetForUpdate = ''; // Изменение //
-  // Для полей ввода данных 'Status' //
-  statusPetForCreate = ''; // Создание //
-  statusPetForUpdate = ''; // Изменение //
-  // Для обработки ошибок //
-  error: any;
+  // Для полей ввода данных 'ID' Питомца//
+  petId: number; // Получение //
+  // Для полей ввода данных 'ID' Заказа//
+  orderId: number;
   // Для вывода результата из subscribe //
-  petForGet: Pet; // Получение //
-  petForCreate: Pet; // Создание //
-  petForUpdate: Pet; // Изменение //
+  petForGet: Pet; // Питомца //
+  orderForGet: Order; // Заказа//
+  petForCreate: Pet;
+  orderForCreate: Order;
+  petForUpdate: Pet;
+  orderForUpdate: Order;
+  petForDelete: Pet;
+  orderForDelete: Order;
+  // Для обработки ошибок //
+  errorForPets: any;
+  errorForOrders: any;
+  // Модели для методов Create и Update //
+  public petModelForCreate: Pet = {
+    id: null,
+    name: '',
+    status: '',
+  } as Pet;
+  public petModelForUpdate: Pet = {
+    id: null,
+    name: '',
+    status: '',
+  } as Pet;
+  public orderModelForCreate: Order = {
+    complete: null,
+    id: this.orderId,
+    petId: null,
+    quantity: null,
+    shipDate: new Date(),
+    status: ''
+  };
+  public orderModelForUpdate: Order = {
+    complete: null,
+    id: null,
+    petId: null,
+    quantity: null,
+    shipDate: new Date(),
+    status: ''
+  };
 
-  constructor(private petService: PetService) {}
+  constructor(private petService: PetService, private storeService: StoreService) {}
 
   // getAllPets() {
   //   for (let i = 0; i < 9; i++) {
@@ -41,36 +69,68 @@ export class AppComponent  {
 
   // Получение одного питомца //
   getPet() {
-    this.petService.getPet(this.petIdForGet).subscribe(pet => this.petForGet = pet, error1 => this.error = error1.message);
+    this.petService.getPet(this.petId).subscribe((pet: Pet) => {
+      this.petForGet = pet;
+      this.errorForPets = '';
+    }, (error: HttpErrorResponse) => {
+      this.petForGet = null;
+      this.errorForPets = error.statusText;
+    });
   }
 
-  // Создание одного питомца //
+  // Создание нового питомца //
   createPet() {
-    // Новый Питомец //
-    const dataForCrate: Pet = {
-      category: undefined,
-      photoUrls: '',
-      tags: [],
-      id: this.petIdForCreate,
-      name: this.namePetForCreate,
-      status: this.statusPetForCreate
-    };
-    this.petService.createPet(dataForCrate).subscribe(pet => this.petForCreate = pet);
+    this.petService.createPet(this.petModelForCreate).subscribe(pet => {
+      this.petForCreate = pet;
+    });
   }
 
   // Изменение одного питомца //
   updatePet() {
-    // Измененый питомец //
-    const dataForUpdate: Pet = {
-      id: this.petIdForUpdate,
-      name: this.namePetForUpdate,
-      status: this.statusPetForUpdate
-    } as Pet;
-    this.petService.updatePet(dataForUpdate).subscribe(pet => this.petForUpdate = pet);
+    this.petService.updatePet(this.petModelForUpdate).subscribe(pet => {
+      this.petForUpdate = pet;
+    });
   }
 
   // Удаление одного питомца //
   deletePet() {
-    this.petService.deletePet(this.petIdForDelete);
+    this.petService.deletePet(this.petId).subscribe(pet => {
+      this.petForDelete = pet;
+      alert('Питомец с ID: ' + this.petId + ' удален.');
+    });
+  }
+
+  // Получение одного заказа //
+  getOrder() {
+    this.storeService.getOrder(this.orderId).subscribe((order: Order) => {
+      this.orderForGet = order;
+      this.errorForOrders = '';
+      },
+      (error: HttpErrorResponse) => {
+      this.orderForGet = null;
+      this.errorForOrders = error.statusText;
+        });
+  }
+
+  // Создание нового заказа //
+  createOrder() {
+    this.storeService.createOrder(this.orderModelForCreate).subscribe((order: Order) => {
+      this.orderForCreate = order;
+    });
+  }
+
+  // Изменение одного заказа //
+  updateOrder() {
+    this.storeService.updateOrder(this.orderModelForUpdate).subscribe((order: Order) => {
+      this.orderForUpdate = order;
+    });
+  }
+
+  // Удаление одного заказа //
+  deleteOrder() {
+    this.storeService.deleteOrder(this.orderId).subscribe((order: Order) => {
+      this.orderForDelete = order;
+      alert('Заказ с ID: ' + this.orderId + ' удален.');
+    });
   }
 }

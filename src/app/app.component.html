@@ -1,4 +1,5 @@
 <h1>PET STORE</h1>
+
 <!--<div>-->
 <!--<ul>-->
 <!--  <button (click)="getAllPets()">All</button>-->
@@ -7,61 +8,119 @@
 <!--  </li>-->
 <!--</ul>-->
 <!--</div>-->
-<br>
-<br>
 
-Pet ID: <input type="text" [(ngModel)]="petIdForGet">
+<!--ПИТОМЦЫ-->
+Pet ID: <input type="text" [(ngModel)]="petId">
 <button (click)="getPet()">Get</button>
-<div *ngIf="error">{{error}}</div>
-<div *ngIf="petForGet">
-  <img src="{{petForGet.photoUrls}}" alt="">
-  <p>ID: {{petForGet.id}}</p>
-  <p>Имя: {{petForGet?.name}}</p>
-  <p *ngFor="let tag of petForGet.tags">Тег: {{tag.name}}</p>
-  <p>Статус: {{petForGet.status}}</p>
-</div>
-
-<br>
-<br>
-
-ID: <input type="text" [(ngModel)]="petIdForCreate">
-Name: <input type="text" [(ngModel)]="namePetForCreate">
-Status: <select [(ngModel)]="statusPetForCreate">
-  <option>available</option>
-  <option>pending</option>
-  <option>sold</option>
-</select>
 <button (click)="createPet()">Create</button>
-
-<br>
-
-<div *ngIf="petForCreate">
-  Object with ID: {{petForCreate.id}} create.
-</div>
-
-<br>
-
-<br>
-
-ID: <input type="text" [(ngModel)]="petIdForUpdate">
-Name: <input type="text" [(ngModel)]="namePetForUpdate">
-Status: <select [(ngModel)]="statusPetForUpdate">
-  <option>available</option>
-  <option>pending</option>
-  <option>sold</option>
-</select>
 <button (click)="updatePet()">Update</button>
-<br>
-<div *ngIf="petForUpdate">
-  Object with ID: {{petForUpdate.id}} update.
-</div>
-
-<br>
-
-Pet ID(DELETE): <input type="text" [(ngModel)]="petIdForDelete">
 <button (click)="deletePet()">Delete</button>
 
+<!--Получение одного питомца-->
+<div *ngIf="petForGet">
+  <h3>Get Pet:</h3>
+  <img src="{{petForGet.photoUrls}}" alt="">
+  <p>ID: {{petForGet.id}}</p>
+  <p>Name: {{petForGet?.name}}</p>
+  <p *ngFor="let tag of petForGet.tags">Tags: {{tag.name}}</p>
+  <p>Status: {{petForGet.status}}</p>
+</div>
+<div *ngIf="errorForPets">{{errorForPets}}</div>
 
+<!--Создание нового питомца-->
+<div *ngIf="petForCreate">
+  <h3>Create Pet:</h3>
+  ID: <input type="text" [(ngModel)]="petModelForCreate.id">
+  Name: <input type="text" [(ngModel)]="petModelForCreate.name">
+  Status: <select [(ngModel)]="petModelForCreate.status">
+  <option>available</option>
+  <option>pending</option>
+  <option>sold</option>
+</select>
+</div>
+<div *ngIf="petForCreate">
+  Pet with ID: {{petForCreate.id}} create.
+</div>
 
+<!--Изменение одного питомца-->
+<div *ngIf="petForUpdate">
+  <h3>Update Pet:</h3>
+  ID: <input type="text" [(ngModel)]="petModelForUpdate.id">
+  Name: <input type="text" [(ngModel)]="petModelForUpdate.name">
+  Status: <select [(ngModel)]="petModelForUpdate.status">
+  <option>available</option>
+  <option>pending</option>
+  <option>sold</option>
+</select>
+</div>
+<div *ngIf="petForUpdate">
+  Pet with ID: {{petForUpdate.id}} update.
+</div>
 
+<br>
+<br>
+<br>
+<br>
 
+<!--ЗАКАЗЫ-->
+Order ID: <input type="text" [(ngModel)]="orderId">
+<button (click)="getOrder()">Get</button>
+<button (click)="createOrder()">Create</button>
+<button (click)="updateOrder()">Update</button>
+<button (click)="deleteOrder()">Delete</button>
+
+<!--Получение одного заказа-->
+<div *ngIf="errorForOrders">{{errorForOrders}}</div>
+<div *ngIf="orderForGet">
+  <h3>Get Order</h3>
+  <p>ID: {{orderForGet.id}}</p>
+  <p>PetId: {{orderForGet.petId}}</p>
+  <p>Quantity: {{orderForGet.quantity}}</p>
+  <p>ShipDate: {{orderForGet.shipDate}}</p>
+  <p>Status: {{orderForGet.status}}</p>
+  <p>Complete: {{orderForGet.complete}}</p>
+</div>
+
+<!--Создание нового заказа-->
+<div *ngIf="orderForCreate">
+  <h3>Create Order</h3>
+  ID: <input type="text" [(ngModel)]="orderModelForCreate.id">
+  Pet ID: <input type="text" [(ngModel)]="orderModelForCreate.petId">
+  Quantity: <input type="text" [(ngModel)]="orderModelForCreate.quantity">
+  Status: <select [(ngModel)]="orderModelForCreate.status">
+  <option>placed</option>
+  <option>approved</option>
+  <option>delivered</option>
+</select>
+  Complete: <select [(ngModel)]="orderModelForCreate.complete">
+  <option>True</option>
+  <option>False</option>
+</select>
+  <button (click)="createOrder()">Create</button>
+  <br>
+</div>
+<div *ngIf="orderForCreate">
+  Order with ID {{orderForCreate.id}} create.
+</div>
+
+<!--Изменение одного заказа-->
+<div *ngIf="orderForUpdate">
+  <h3>Update Order</h3>
+  ID: <input type="text" [(ngModel)]="orderModelForUpdate.id">
+  Pet ID: <input type="text" [(ngModel)]="orderModelForUpdate.petId">
+  Quantity: <input type="text" [(ngModel)]="orderModelForUpdate.quantity">
+  Status: <select [(ngModel)]="orderModelForUpdate.status">
+  <option>placed</option>
+  <option>approved</option>
+  <option>delivered</option>
+</select>
+  Complete: <select [(ngModel)]="orderModelForUpdate.complete">
+  <option>True</option>
+  <option>False</option>
+</select>
+  <button (click)="updateOrder()">Update</button>
+  <br>
+</div>
+<div *ngIf="orderForUpdate">
+  Order with ID: {{orderForUpdate.id}} update.
+</div>
