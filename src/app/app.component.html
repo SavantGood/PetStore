@@ -1,3 +1,18 @@
+
+<nav>
+  <a routerLink="/login">LogIn</a>
+  <br>
+  <div>
+    <a routerLink="/logout">Logout</a>
+  </div>
+  <br>
+  <a routerLink="/register">Registration</a>
+  <br>
+  <a routerLink="">Back</a>
+
+</nav>
+<router-outlet></router-outlet>
+
 <h1>PET STORE</h1>
 
 <!--<div>-->
@@ -12,23 +27,23 @@
 <!--ПИТОМЦЫ-->
 Pet ID: <input type="text" [(ngModel)]="petId">
 <button (click)="getPet()">Get</button>
-<button (click)="createPet()">Create</button>
-<button (click)="updatePet()">Update</button>
+<button (click)="newRecordForPetCreate = true">Create</button>
+<button (click)="newRecordForPetUpdate = true">Update</button>
 <button (click)="deletePet()">Delete</button>
 
 <!--Получение одного питомца-->
 <div *ngIf="petForGet">
   <h3>Get Pet:</h3>
-  <img src="{{petForGet.photoUrls}}" alt="">
   <p>ID: {{petForGet.id}}</p>
   <p>Name: {{petForGet?.name}}</p>
   <p *ngFor="let tag of petForGet.tags">Tags: {{tag.name}}</p>
   <p>Status: {{petForGet.status}}</p>
+  <img src="{{petForGet.photoUrls}}" alt="">
 </div>
 <div *ngIf="errorForPets">{{errorForPets}}</div>
 
 <!--Создание нового питомца-->
-<div *ngIf="petForCreate">
+<div *ngIf="newRecordForPetCreate">
   <h3>Create Pet:</h3>
   ID: <input type="text" [(ngModel)]="petModelForCreate.id">
   Name: <input type="text" [(ngModel)]="petModelForCreate.name">
@@ -37,13 +52,15 @@ Pet ID: <input type="text" [(ngModel)]="petId">
   <option>pending</option>
   <option>sold</option>
 </select>
+  <button (click)="createPet()">Save</button>
+  <button (click)="cancel()">Cancel</button>
 </div>
 <div *ngIf="petForCreate">
   Pet with ID: {{petForCreate.id}} create.
 </div>
 
 <!--Изменение одного питомца-->
-<div *ngIf="petForUpdate">
+<div *ngIf="newRecordForPetUpdate">
   <h3>Update Pet:</h3>
   ID: <input type="text" [(ngModel)]="petModelForUpdate.id">
   Name: <input type="text" [(ngModel)]="petModelForUpdate.name">
@@ -52,6 +69,8 @@ Pet ID: <input type="text" [(ngModel)]="petId">
   <option>pending</option>
   <option>sold</option>
 </select>
+  <button (click)="updatePet()">Save</button>
+  <button (click)="cancel()">Cancel</button>
 </div>
 <div *ngIf="petForUpdate">
   Pet with ID: {{petForUpdate.id}} update.
@@ -65,8 +84,8 @@ Pet ID: <input type="text" [(ngModel)]="petId">
 <!--ЗАКАЗЫ-->
 Order ID: <input type="text" [(ngModel)]="orderId">
 <button (click)="getOrder()">Get</button>
-<button (click)="createOrder()">Create</button>
-<button (click)="updateOrder()">Update</button>
+<button (click)="newRecordForOrderCreate = true">Create</button>
+<button (click)="newRecordForOrderUpdate = true">Update</button>
 <button (click)="deleteOrder()">Delete</button>
 
 <!--Получение одного заказа-->
@@ -82,7 +101,7 @@ Order ID: <input type="text" [(ngModel)]="orderId">
 </div>
 
 <!--Создание нового заказа-->
-<div *ngIf="orderForCreate">
+<div *ngIf="newRecordForOrderCreate">
   <h3>Create Order</h3>
   ID: <input type="text" [(ngModel)]="orderModelForCreate.id">
   Pet ID: <input type="text" [(ngModel)]="orderModelForCreate.petId">
@@ -96,7 +115,8 @@ Order ID: <input type="text" [(ngModel)]="orderId">
   <option>True</option>
   <option>False</option>
 </select>
-  <button (click)="createOrder()">Create</button>
+  <button (click)="createOrder()">Save</button>
+  <button (click)="cancel()">Cancel</button>
   <br>
 </div>
 <div *ngIf="orderForCreate">
@@ -104,7 +124,7 @@ Order ID: <input type="text" [(ngModel)]="orderId">
 </div>
 
 <!--Изменение одного заказа-->
-<div *ngIf="orderForUpdate">
+<div *ngIf="newRecordForOrderUpdate">
   <h3>Update Order</h3>
   ID: <input type="text" [(ngModel)]="orderModelForUpdate.id">
   Pet ID: <input type="text" [(ngModel)]="orderModelForUpdate.petId">
@@ -118,9 +138,12 @@ Order ID: <input type="text" [(ngModel)]="orderId">
   <option>True</option>
   <option>False</option>
 </select>
-  <button (click)="updateOrder()">Update</button>
+  <button (click)="updateOrder()">Save</button>
+  <button (click)="cancel()">Cancel</button>
   <br>
 </div>
 <div *ngIf="orderForUpdate">
   Order with ID: {{orderForUpdate.id}} update.
 </div>
+
+
