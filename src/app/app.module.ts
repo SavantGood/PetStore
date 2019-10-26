@@ -8,9 +8,9 @@ import {PetService} from './services/pet.service';
 import {StoreService} from './services/store.service';
 import { LoginComponent } from './login/login.component';
 import {RouterModule} from '@angular/router';
-import { RegisterComponent } from './register/register.component';
+import {RegisterComponent} from './register/register.component';
 import {LoginService} from './services/login.service';
-import { LogoutComponent } from './logout/logout.component';
+import {LogoutComponent} from './logout/logout.component';
 import {LogoutService} from './services/logout.service';
 
 

@@ -1,15 +1,8 @@
-
 <nav>
+  <a routerLink="">Home</a>
   <a routerLink="/login">LogIn</a>
-  <br>
-  <div>
-    <a routerLink="/logout">Logout</a>
-  </div>
-  <br>
+  <a routerLink="/logout">LogOut</a>
   <a routerLink="/register">Registration</a>
-  <br>
-  <a routerLink="">Back</a>
-
 </nav>
 <router-outlet></router-outlet>
 
@@ -27,8 +20,8 @@
 <!--ПИТОМЦЫ-->
 Pet ID: <input type="text" [(ngModel)]="petId">
 <button (click)="getPet()">Get</button>
-<button (click)="newRecordForPetCreate = true">Create</button>
-<button (click)="newRecordForPetUpdate = true">Update</button>
+<button (click)="switchPet = 1">Create</button>
+<button (click)="switchPet = 2">Update</button>
 <button (click)="deletePet()">Delete</button>
 
 <!--Получение одного питомца-->
@@ -42,8 +35,9 @@ Pet ID: <input type="text" [(ngModel)]="petId">
 </div>
 <div *ngIf="errorForPets">{{errorForPets}}</div>
 
+<div [ngSwitch]="switchPet">
 <!--Создание нового питомца-->
-<div *ngIf="newRecordForPetCreate">
+  <ng-template ngSwitchCase="1">
   <h3>Create Pet:</h3>
   ID: <input type="text" [(ngModel)]="petModelForCreate.id">
   Name: <input type="text" [(ngModel)]="petModelForCreate.name">
@@ -53,14 +47,14 @@ Pet ID: <input type="text" [(ngModel)]="petId">
   <option>sold</option>
 </select>
   <button (click)="createPet()">Save</button>
-  <button (click)="cancel()">Cancel</button>
-</div>
-<div *ngIf="petForCreate">
-  Pet with ID: {{petForCreate.id}} create.
-</div>
+  <button (click)="switchPet = null">Cancel</button>
+    <p *ngIf="petForCreate">
+      Pet with ID: {{petForCreate.id}} create.
+    </p>
+  </ng-template>
 
 <!--Изменение одного питомца-->
-<div *ngIf="newRecordForPetUpdate">
+  <ng-template ngSwitchCase="2">
   <h3>Update Pet:</h3>
   ID: <input type="text" [(ngModel)]="petModelForUpdate.id">
   Name: <input type="text" [(ngModel)]="petModelForUpdate.name">
@@ -70,10 +64,11 @@ Pet ID: <input type="text" [(ngModel)]="petId">
   <option>sold</option>
 </select>
   <button (click)="updatePet()">Save</button>
-  <button (click)="cancel()">Cancel</button>
-</div>
-<div *ngIf="petForUpdate">
-  Pet with ID: {{petForUpdate.id}} update.
+  <button (click)="switchPet = null">Cancel</button>
+    <p *ngIf="petForUpdate">
+      Pet with ID: {{petForUpdate.id}} update.
+    </p>
+  </ng-template>
 </div>
 
 <br>
@@ -84,8 +79,8 @@ Pet ID: <input type="text" [(ngModel)]="petId">
 <!--ЗАКАЗЫ-->
 Order ID: <input type="text" [(ngModel)]="orderId">
 <button (click)="getOrder()">Get</button>
-<button (click)="newRecordForOrderCreate = true">Create</button>
-<button (click)="newRecordForOrderUpdate = true">Update</button>
+<button (click)="switchOrder = 1">Create</button>
+<button (click)="switchOrder = 2">Update</button>
 <button (click)="deleteOrder()">Delete</button>
 
 <!--Получение одного заказа-->
@@ -101,7 +96,8 @@ Order ID: <input type="text" [(ngModel)]="orderId">
 </div>
 
 <!--Создание нового заказа-->
-<div *ngIf="newRecordForOrderCreate">
+<div [ngSwitch]="switchOrder">
+  <ng-template ngSwitchCase="1">
   <h3>Create Order</h3>
   ID: <input type="text" [(ngModel)]="orderModelForCreate.id">
   Pet ID: <input type="text" [(ngModel)]="orderModelForCreate.petId">
@@ -116,15 +112,15 @@ Order ID: <input type="text" [(ngModel)]="orderId">
   <option>False</option>
 </select>
   <button (click)="createOrder()">Save</button>
-  <button (click)="cancel()">Cancel</button>
+  <button (click)="switchOrder = null">Cancel</button>
   <br>
-</div>
-<div *ngIf="orderForCreate">
+<p *ngIf="orderForCreate">
   Order with ID {{orderForCreate.id}} create.
-</div>
+</p>
+  </ng-template>
 
 <!--Изменение одного заказа-->
-<div *ngIf="newRecordForOrderUpdate">
+  <ng-template ngSwitchCase="2">
   <h3>Update Order</h3>
   ID: <input type="text" [(ngModel)]="orderModelForUpdate.id">
   Pet ID: <input type="text" [(ngModel)]="orderModelForUpdate.petId">
@@ -139,11 +135,13 @@ Order ID: <input type="text" [(ngModel)]="orderId">
   <option>False</option>
 </select>
   <button (click)="updateOrder()">Save</button>
-  <button (click)="cancel()">Cancel</button>
+  <button (click)="switchOrder = null">Cancel</button>
   <br>
-</div>
-<div *ngIf="orderForUpdate">
+<p *ngIf="orderForUpdate">
   Order with ID: {{orderForUpdate.id}} update.
+</p>
+  </ng-template>
 </div>
+
 
 

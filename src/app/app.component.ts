@@ -12,10 +12,8 @@ import {HttpErrorResponse} from '@angular/common/http';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent  {
-  newRecordForPetCreate: boolean;
-  newRecordForPetUpdate: boolean;
-  newRecordForOrderCreate: boolean;
-  newRecordForOrderUpdate: boolean;
+  switchPet: number;
+  switchOrder: number;
   // Для полей ввода данных 'ID' Питомца//
   petId: number; // Получение //
   // Для полей ввода данных 'ID' Заказа//
@@ -59,6 +57,7 @@ export class AppComponent  {
     shipDate: new Date(),
     status: ''
   };
+
 
   constructor(private petService: PetService, private storeService: StoreService) {}
 
@@ -136,20 +135,5 @@ export class AppComponent  {
       this.orderForDelete = order;
       alert('Заказ с ID: ' + this.orderId + ' удален.');
     });
-  }
-
-  cancel() {
-    if (this.newRecordForPetCreate || this.newRecordForOrderCreate
-    || this.newRecordForOrderUpdate || this.newRecordForPetUpdate) {
-      this.newRecordForPetCreate = false;
-      this.newRecordForOrderCreate = false;
-      this.newRecordForOrderUpdate = false;
-      this.newRecordForPetUpdate = false;
-    }
-    this.petForCreate = null;
-    this.petForUpdate = null;
-    this.orderForCreate = null;
-    this.orderForUpdate = null;
-
   }
 }

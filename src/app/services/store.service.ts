@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
 import {Order} from '../models/order';
 import {Observable} from 'rxjs';
 
@@ -9,9 +8,6 @@ import {Observable} from 'rxjs';
 })
 export class StoreService {
   readonly STORE_URL = 'https://petstore.swagger.io/v2/store/order/';
-  // Заказы для записи результата pipe //
-  orderForCreate: Order;
-  orderForUpdate: Order;
 
   constructor(private http: HttpClient) { }
 

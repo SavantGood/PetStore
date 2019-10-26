@@ -1,12 +1,42 @@
 <div>
   <h3>Registration</h3>
-ID: <input class="input" type="text" [(ngModel)]="modelForReg.id">
-Username: <input type="text" [(ngModel)]="modelForReg.username">
-FirstName: <input type="text" [(ngModel)]="modelForReg.firstName">
-LastName: <input type="text" [(ngModel)]="modelForReg.lastName">
-E-mail: <input type="text" [(ngModel)]="modelForReg.email">
-Password: <input type="text" [(ngModel)]="modelForReg.password">
-Phone: <input type="text" [(ngModel)]="modelForReg.phone">
-UserStatus: <input type="text" [(ngModel)]="modelForReg.userStatus">
-<button (click)="registration()">Regestration</button>
+  <label>ID:</label>
+  <input class="input" type="text" [(ngModel)]="modelForReg.id" #id="ngModel" required pattern="[0-9]" />
+  <p [hidden]="id.valid || id.untouched">
+    Enter ID (use number 0-9)
+  </p>
+  <label>Username:</label>
+  <input type="text" [(ngModel)]="modelForReg.username" #username="ngModel" required="">
+  <p [hidden]="username.valid || username.untouched">
+  Enter Username
+  </p>
+  <label>FirstName:</label>
+  <input type="text" [(ngModel)]="modelForReg.firstName" #firstName="ngModel" required="">
+  <p [hidden]="firstName.valid || firstName.untouched">
+    Enter FirstName
+  </p>
+  <label>LastName:</label>
+  <input type="text" [(ngModel)]="modelForReg.lastName" #lastName="ngModel" required="">
+  <p [hidden]="lastName.valid || lastName.untouched">
+    Enter LastName
+  </p>
+  <label>E-mail:</label>
+  <input type="text" [(ngModel)]="modelForReg.email" #email="ngModel" required email="">
+  <p [hidden]="email.valid || email.untouched">
+    Enter E-mail
+  </p>
+  <label>Password:</label>
+  <input type="text" [(ngModel)]="modelForReg.password" #password="ngModel" required="">
+  <p [hidden]="password.valid || password.untouched">
+    Enter Password
+  </p>
+  <label>Phone:</label>
+  <input type="text" placeholder="+7(909)118-68-95" [(ngModel)]="modelForReg.phone"
+         #phone="ngModel" required pattern="^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$">
+  <p [hidden]="phone.valid || phone.untouched">
+    Enter Phone
+  </p>
+  <label>UserStatus:</label>
+  <input type="text" [(ngModel)]="modelForReg.userStatus">
+<button [disabled]="username.invalid || password.invalid" (click)="registration()">Registration</button>
 </div>
