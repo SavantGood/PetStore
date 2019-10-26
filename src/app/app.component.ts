@@ -12,6 +12,7 @@ import {HttpErrorResponse} from '@angular/common/http';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent  {
+  // Для отображения полей Create и Update //
   switchPet: number;
   switchOrder: number;
   // Для полей ввода данных 'ID' Питомца//
