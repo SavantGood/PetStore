@@ -1,14 +1,14 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LogoutService {
-  readonly OUT_URL = 'https://petstore.swagger.io/v2/user/logout';
-  constructor(private http: HttpClient) { }
+  // readonly OUT_URL = this.appConfig.getWebApiUrl() + '/user/logout';
+  constructor() { }
 
-  logout() {
-    return this.http.get(this.OUT_URL);
+  logout(): void {
+    localStorage.setItem('isLoggedIn', 'false');
+    localStorage.removeItem('token');
   }
 }

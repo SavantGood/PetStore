@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {User} from '../models/user';
 import {Router} from '@angular/router';
+import {RegisterService} from '../services/register.service';
 
 @Component({
   selector: 'app-register',
@@ -9,23 +9,22 @@ import {Router} from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  readonly REG_URL = 'https://petstore.swagger.io/v2/user/';
   userForReg: User;
   public modelForReg: User = {
-    email: null,
-    firstName: null,
-    id: null,
-    lastName: null,
-    password: null,
-    phone: null,
-    userStatus: null,
-    username: null
-  }
+    email: 'null@null',
+    firstName: 'null',
+    id: 0,
+    lastName: 'null',
+    password: 'null',
+    phone: '+79091186895',
+    userStatus: 0,
+    username: 'null'
+  };
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private router: Router, private registerService: RegisterService) {}
 
   public registration() {
-    this.http.post<User>(this.REG_URL, this.modelForReg).subscribe((item: User) => {
+    this.registerService.registration(this.modelForReg).subscribe((item: User) => {
       this.userForReg = item;
       alert('Успешная регаистрация пользователя: ' + this.modelForReg.username);
       this.router.navigate(['/login']);

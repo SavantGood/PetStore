@@ -1,0 +1,12 @@
+div {
+  width: 100%;
+}
+
+button {
+  margin-left: 10px;
+}
+
+div:hover {
+  background: #595757;
+  opacity: 0.7;
+}

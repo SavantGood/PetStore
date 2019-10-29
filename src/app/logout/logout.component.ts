@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {LogoutService} from '../services/logout.service';
 import {Router} from '@angular/router';
+import {SnackBarService} from '../services/snack-bar.service';
 
 @Component({
   selector: 'app-logout',
@@ -8,13 +9,14 @@ import {Router} from '@angular/router';
   styleUrls: ['./logout.component.css']
 })
 export class LogoutComponent {
+  @Input() username: string;
 
-  constructor(private logoutServices: LogoutService, private route: Router) { }
+  constructor(private logoutServices: LogoutService, private router: Router, private snackBarService: SnackBarService) { }
 
-  logout() {
+
+    logout(): void {
+    this.snackBarService.openSnackBar('Logout', 'ok');
     this.logoutServices.logout();
-    alert('Вы вышли');
-    this.route.navigate(['']);
+    this.router.navigate(['/login']);
   }
-
 }

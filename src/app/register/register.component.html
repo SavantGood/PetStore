@@ -1,42 +1,90 @@
 <div>
   <h3>Registration</h3>
-  <label>ID:</label>
-  <input class="input" type="text" [(ngModel)]="modelForReg.id" #id="ngModel" required pattern="[0-9]" />
-  <p [hidden]="id.valid || id.untouched">
+  <!--Форма для ID-->
+  <app-input
+  [(ngModel)]="modelForReg.id"
+  [placeholder]="'User ID: '"
+  #id="ngModel"
+  required=""
+  ngDefaultControl
+  ></app-input>
+  <mat-error *ngIf="id.invalid">
     Enter ID (use number 0-9)
-  </p>
-  <label>Username:</label>
-  <input type="text" [(ngModel)]="modelForReg.username" #username="ngModel" required="">
-  <p [hidden]="username.valid || username.untouched">
-  Enter Username
-  </p>
-  <label>FirstName:</label>
-  <input type="text" [(ngModel)]="modelForReg.firstName" #firstName="ngModel" required="">
-  <p [hidden]="firstName.valid || firstName.untouched">
-    Enter FirstName
-  </p>
-  <label>LastName:</label>
-  <input type="text" [(ngModel)]="modelForReg.lastName" #lastName="ngModel" required="">
-  <p [hidden]="lastName.valid || lastName.untouched">
-    Enter LastName
-  </p>
-  <label>E-mail:</label>
-  <input type="text" [(ngModel)]="modelForReg.email" #email="ngModel" required email="">
-  <p [hidden]="email.valid || email.untouched">
+  </mat-error>
+  <!--Форма для UserName-->
+  <app-input
+    [(ngModel)]="modelForReg.username"
+    [placeholder]="'Username: '"
+    #username="ngModel"
+    required=""
+    ngDefaultControl></app-input>
+  <mat-error *ngIf="username.invalid">
+    Enter Username
+  </mat-error>
+  <!--Форма для FirstName-->
+  <app-input
+  [(ngModel)]="modelForReg.firstName"
+  [placeholder]="'First Name: '"
+  #firstName="ngModel"
+  required=""
+  ngDefaultControl
+  ></app-input>
+  <mat-error *ngIf="firstName.invalid">
+    Enter First Name
+  </mat-error>
+  <!--Форма для LastName-->
+  <app-input
+  [(ngModel)]="modelForReg.lastName"
+  [placeholder]="'Last Name: '"
+  #lastName="ngModel"
+  required=""
+  ngDefaultControl
+  ></app-input>
+  <mat-error *ngIf="lastName.invalid">
+    Enter Last Name
+  </mat-error>
+  <!--Форма для E-mail-->
+  <app-input
+    [(ngModel)]="modelForReg.email"
+    [placeholder]="'E-mail: '"
+    #email="ngModel"
+    required email=""
+    ngDefaultControl
+  ></app-input>
+  <mat-error *ngIf="email.invalid">
     Enter E-mail
-  </p>
-  <label>Password:</label>
-  <input type="text" [(ngModel)]="modelForReg.password" #password="ngModel" required="">
-  <p [hidden]="password.valid || password.untouched">
+  </mat-error>
+  <!--Форма для Password-->
+  <app-input
+    [(ngModel)]="modelForReg.password"
+    [placeholder]="'Password: '"
+    #password="ngModel"
+    required=""
+    ngDefaultControl
+  ></app-input>
+  <mat-error *ngIf="password.invalid">
     Enter Password
-  </p>
-  <label>Phone:</label>
-  <input type="text" placeholder="+7(909)118-68-95" [(ngModel)]="modelForReg.phone"
-         #phone="ngModel" required pattern="^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$">
-  <p [hidden]="phone.valid || phone.untouched">
+  </mat-error>
+  <!--Форма для Phone-->
+  <app-input
+    [(ngModel)]="modelForReg.phone"
+    [placeholder]="'Phone: '"
+    #phone="ngModel"
+    required pattern="^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$"
+    ngDefaultControl
+  ></app-input>
+  <mat-error *ngIf="phone.invalid">
     Enter Phone
-  </p>
-  <label>UserStatus:</label>
-  <input type="text" [(ngModel)]="modelForReg.userStatus">
-<button [disabled]="username.invalid || password.invalid" (click)="registration()">Registration</button>
+  </mat-error>
+  <!--Форма для UserStatus-->
+  <app-input
+    [(ngModel)]="modelForReg.userStatus"
+    [placeholder]="'User status: '"
+    ngDefaultControl
+  ></app-input>
+  <!--Кнопка для регистрации-->
+  <button mat-button [disabled]="username.invalid || password.invalid" (click)="registration()">Registration</button>
 </div>
+
+
+

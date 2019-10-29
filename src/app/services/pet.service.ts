@@ -2,16 +2,24 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Pet} from '../models/pet';
 import {Observable} from 'rxjs';
+import {AppConfig} from '../app.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PetService {
-  private readonly ROOT_URL = 'https://petstore.swagger.io/v2/pet/';
+  private readonly ROOT_URL = this.appConfig.getWebApiUrl() + '/pet/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private appConfig: AppConfig) { }
 
-  // Получение одного питомца //
+  // Получение списка животных по статусу //
+  findByStatus(status: string): Observable<Pet[]> {
+    return this.http.get<Pet[]>(this.ROOT_URL + 'findByStatus?status=' + status);
+  }
+
+  /**
+   * @ Полчение одного питомца
+   */
   public getPet(id: number): Observable<Pet> {
     return this.http.get<Pet>(this.ROOT_URL + id);
   }

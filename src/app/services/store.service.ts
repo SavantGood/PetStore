@@ -2,14 +2,21 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Order} from '../models/order';
 import {Observable} from 'rxjs';
+import {AppConfig} from '../app.config';
+import {Inventory} from '../models/inventory';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StoreService {
-  readonly STORE_URL = 'https://petstore.swagger.io/v2/store/order/';
+  readonly STORE_URL = this.appConfig.getWebApiUrl() + '/store/order/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private appConfig: AppConfig) { }
+
+  // Получение списка заказов со статусом //
+  statusByOrder(): Observable<Inventory> {
+    return this.http.get<Inventory>(this.appConfig.getWebApiUrl() + '/store/inventory');
+  }
 
   // Получение одного заказа //
   getOrder(id: number): Observable<Order> {

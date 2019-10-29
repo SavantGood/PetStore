@@ -1,17 +1,17 @@
-a:link, a:visited {
-  margin: 1px;
-  background-color: wheat;
-  padding: 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-}
+/*a:link, a:visited {*/
+/*  margin: 1px;*/
+/*  background-color: wheat;*/
+/*  padding: 10px;*/
+/*  text-align: center;*/
+/*  text-decoration: none;*/
+/*  display: inline-block;*/
+/*}*/
 
-a:hover, a:active {
-  background-color: yellowgreen;
-}
+/*a:hover, a:active {*/
+/*  background-color: yellowgreen;*/
+/*}*/
 
-.invisible {
-  display: none;
-}
+/*.invisible {*/
+/*  display: none;*/
+/*}*/
 
