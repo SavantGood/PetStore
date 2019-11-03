@@ -80,7 +80,7 @@ export class OrderComponent {
       });
     }, error => {
       if (this.orderId == null) {
-        this.snackBarService.openSnackBar('Enter Pet ID', 'ok');
+        this.snackBarService.openSnackBar('Enter Order ID', 'ok');
       } else {
         this.snackBarService.openSnackBar(error.statusText, 'ok');
       }
