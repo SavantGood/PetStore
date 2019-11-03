@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>{{ isEdit ? 'Update' : 'Create' }}</h1>
+<app-input
+  [active]="isEdit"
+  [value]="petModel.id"
+  [(ngModel)]="petModel.id"
+  [placeholder]="'Pet ID: '"
+  ngDefaultControl
+></app-input>
+<app-input
+  [value]="petModel.name"
+  [(ngModel)]="petModel.name"
+  [placeholder]="'Name: '"
+  ngDefaultControl
+></app-input>
+<app-select
+  [(ngModel)]="petModel.status"
+  ngDefaultControl
+  [title]="'Status: '"
+  [options]="optionsForPet"
+></app-select>
+<div mat-dialog-actions>
+  <button mat-button (click)="save()" cdkFocusInitial>{{ isEdit ? 'Update' : 'Create' }}</button>
+  <button mat-button (click)="onNoClick()" color="warn">Cancel</button>
+</div>
+

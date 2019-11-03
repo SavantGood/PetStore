@@ -1,4 +1,4 @@
-import {Injectable, Input} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {SnackBarService} from './services/snack-bar.service';
 
@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
     return this.verifyLogin(url);
   }
 
-  @Input() verifyLogin(url): boolean {
+  private verifyLogin(url): boolean {
     if (!this.isLoggedIn()) {
       this.snackBarService.openSnackBar('Enter your account', 'Cancel');
       this.router.navigate(['/login']);
@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
     }
   }
   public isLoggedIn(): boolean {
-    let status = false;
+    let status: boolean;
     status = localStorage.getItem('isLoggedIn') === 'true';
     return status;
   }

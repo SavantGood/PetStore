@@ -2,10 +2,10 @@ import {Tag} from './tag';
 import {Category} from './category';
 
 export interface Pet {
-  id: number;
-  category: Category;
-  name: string;
-  photoUrls: string;
-  tags: Tag[];
-  status: string;
+  id?: number;
+  category?: Category;
+  name?: string;
+  photoUrls?: string;
+  tags?: Tag[];
+  status?: string;
 }

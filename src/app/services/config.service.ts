@@ -1,21 +1,17 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {tap} from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConfigService {
-  configUrl = 'https://petstore.swagger.io/v2/';
+  public readonly username  = new BehaviorSubject<string>(null);
+  public readonly username$ = this.username.asObservable();
 
-  constructor(private http: HttpClient) {}
-
-  getConfig() {
-    this.http.get('./assets/config.json').pipe(
-      tap((result) => {
-        console.log(result);
-      })
-    );
+  constructor() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.username.next(token);
+    }
   }
-
 }

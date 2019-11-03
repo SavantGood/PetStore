@@ -1,3 +1,3 @@
 export interface Error {
-  message: 'Pet  not found';
+  message?: 'Pet  not found';
 }

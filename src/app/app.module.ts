@@ -6,20 +6,20 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {PetService} from './services/pet.service';
 import {StoreService} from './services/store.service';
-import {LoginComponent} from './login/login.component';
+import {LoginComponent} from './pages/login/login.component';
 import {RouterModule} from '@angular/router';
-import {RegisterComponent} from './register/register.component';
+import {RegisterComponent} from './pages/register/register.component';
 import {LoginService} from './services/login.service';
-import {LogoutComponent} from './logout/logout.component';
+import {LogoutComponent} from './pages/logout/logout.component';
 import {LogoutService} from './services/logout.service';
 import {ConfigService} from './services/config.service';
 import {RegisterService} from './services/register.service';
-import {PetComponent} from './pet/pet.component';
-import {OrderComponent} from './order/order.component';
+import {PetComponent} from './pages/pet/pet.component';
+import {OrderComponent} from './pages/order/order.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatFormFieldModule, MatMenuModule, MatSliderModule} from '@angular/material';
-import {InputComponent} from './input/input.component';
-import {MyNavComponent} from './my-nav/my-nav.component';
+import {MatDialogModule, MatFormFieldModule, MatMenuModule, MatProgressSpinnerModule, MatSliderModule} from '@angular/material';
+import {InputComponent} from './components/input/input.component';
+import {MyNavComponent} from './components/my-nav/my-nav.component';
 import {LayoutModule} from '@angular/cdk/layout';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
@@ -28,12 +28,15 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatInputModule} from '@angular/material/input';
 import {AppConfig} from './app.config';
-import { SelectComponent } from './select/select.component';
+import { SelectComponent } from './components/select/select.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import {AuthGuard} from './auth.guard';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {SnackBarService} from './services/snack-bar.service';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import {PetFormComponent} from './pages/pet/forms/pet-form/pet-form.component';
+import { OrderFormComponent } from './pages/order/froms/order-form/order-form.component';
 
 export function initFactory(config: AppConfig): () => Promise<boolean> {
   return () => new Promise((resolve) => {
@@ -43,8 +46,6 @@ export function initFactory(config: AppConfig): () => Promise<boolean> {
   });
 }
 
-
-// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,6 +58,13 @@ export function initFactory(config: AppConfig): () => Promise<boolean> {
     MyNavComponent,
     SelectComponent,
     SelectComponent,
+    SpinnerComponent,
+    PetFormComponent,
+    OrderFormComponent,
+  ],
+  entryComponents: [
+    PetFormComponent,
+    OrderFormComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +90,9 @@ export function initFactory(config: AppConfig): () => Promise<boolean> {
     ReactiveFormsModule,
     MatPaginatorModule,
     MatTableModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatDialogModule
   ],
   providers: [
     AppConfig,

@@ -8,7 +8,7 @@ import {AppConfig} from '../app.config';
   providedIn: 'root'
 })
 export class RegisterService {
-  readonly REG_URL = this.appConfig.getWebApiUrl() + '/user/';
+  private readonly REG_URL = this.appConfig.getWebApiUrl() + '/user/';
 
   constructor(private http: HttpClient, private appConfig: AppConfig) {}
 

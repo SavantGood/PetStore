@@ -1,0 +1,41 @@
+<!--ПИТОМЦЫ-->
+<div class="formCenter">
+  <h1>PETS</h1>
+  <app-input [(ngModel)]="petId" [placeholder]="'Pet ID: '" ngDefaultControl></app-input>
+  <button mat-button (click)="getPet()">Get</button>
+  <button mat-button (click)="onShowCreatePet()">Create</button>
+  <button mat-button (click)="onShowUpdatePet()">Update</button>
+  <button mat-button (click)="deletePet()">Delete</button>
+  <button mat-button (click)="toggle()">Find Pets by Status</button>
+  <app-spinner [complete]="isComplete"></app-spinner>
+
+  <!--Получение одного питомца-->
+  <div *ngIf="petForGet">
+    <h3>Get Pet:</h3>
+    <p>ID: {{petForGet.id}}</p>
+    <p>Name: {{petForGet?.name}}</p>
+    <p *ngFor="let tag of petForGet.tags">Tags: {{tag.name}}</p>
+    <p>Status: {{petForGet.status}}</p>
+    <img src="{{petForGet.photoUrls}}" alt="">
+    <button mat-button (click)="petForGet = null" color="warn">Clear</button>
+  </div>
+
+  <!--Поиск животного по статусу-->
+  <div [ngClass]="{invisible: visibility}">
+    <h3>Find Pets by Status: </h3>
+    <app-select
+      [(ngModel)]="petStatus"
+      [title]="'Status: '"
+      [options]="optionsForPet"
+      ngDefaultControl
+    >
+    </app-select>
+    <button mat-button (click)="findByStatus()">Find</button>
+    <button mat-button (click)="toggle()" color="warn">Cancel</button>
+    <div>
+      <ul *ngFor="let pet of pets; let i = index">
+        {{i + 1}}. Pet ID: {{pet.id}}, Name: {{pet.name}}, Status: {{pet.status}}
+      </ul>
+    </div>
+  </div>
+</div>

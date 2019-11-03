@@ -13,13 +13,11 @@ export class PetService {
   constructor(private http: HttpClient, private appConfig: AppConfig) { }
 
   // Получение списка животных по статусу //
-  findByStatus(status: string): Observable<Pet[]> {
+  public findByStatus(status: string): Observable<Pet[]> {
     return this.http.get<Pet[]>(this.ROOT_URL + 'findByStatus?status=' + status);
   }
 
-  /**
-   * @ Полчение одного питомца
-   */
+  // Получение одного питомца //
   public getPet(id: number): Observable<Pet> {
     return this.http.get<Pet>(this.ROOT_URL + id);
   }

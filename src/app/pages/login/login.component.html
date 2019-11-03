@@ -1,0 +1,17 @@
+<div class="formCenter">
+  <h3>LOGIN</h3>
+  <app-input
+    [(ngModel)]="userModel.username"
+    [placeholder]="'Username: '"
+    ngDefaultControl
+  ></app-input>
+  <app-input
+    [(ngModel)]="userModel.password"
+    [placeholder]="'Password: '"
+    [type]="'password'"
+    ngDefaultControl
+  ></app-input>
+  <button mat-button (click)="login()">Connect</button>
+</div>
+<app-spinner [complete]="isComplete"></app-spinner>
+

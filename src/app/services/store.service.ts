@@ -9,29 +9,32 @@ import {Inventory} from '../models/inventory';
   providedIn: 'root'
 })
 export class StoreService {
-  readonly STORE_URL = this.appConfig.getWebApiUrl() + '/store/order/';
+  private readonly STORE_URL = this.appConfig.getWebApiUrl() + '/store/order/';
 
   constructor(private http: HttpClient, private appConfig: AppConfig) { }
 
   // Получение списка заказов со статусом //
-  statusByOrder(): Observable<Inventory> {
+  public statusByOrder(): Observable<Inventory> {
     return this.http.get<Inventory>(this.appConfig.getWebApiUrl() + '/store/inventory');
   }
 
   // Получение одного заказа //
-  getOrder(id: number): Observable<Order> {
+  public getOrder(id: number): Observable<Order> {
     return this.http.get<Order>(this.STORE_URL + id);
   }
+
   // Создание нового заказа //
-  createOrder(data: Order): Observable<Order> {
+  public createOrder(data: Order): Observable<Order> {
     return this.http.post<Order>(this.STORE_URL, data);
   }
+
   // Изменение заказа//
-  updateOrder(data: Order): Observable<Order> {
+  public updateOrder(data: Order): Observable<Order> {
     return this.http.post<Order>(this.STORE_URL, data);
   }
+
   // Удаление заказа //
-  deleteOrder(id: number): Observable<Order> {
+  public deleteOrder(id: number): Observable<Order> {
     return this.http.delete<Order>(this.STORE_URL + id);
   }
 

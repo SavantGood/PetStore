@@ -1,0 +1,32 @@
+<div class="formCenter">
+  <h1>ORDERS</h1>
+  <!--ЗАКАЗЫ-->
+  <app-input [(ngModel)]="orderId" [placeholder]="'Order ID: '" ngDefaultControl></app-input>
+  <button mat-button (click)="getOrder()">Get</button>
+  <button mat-button (click)="onShowCreateOrder()">Create</button>
+  <button mat-button (click)="onShowUpdateOrder()">Update</button>
+  <button mat-button (click)="deleteOrder()">Delete</button>
+  <button mat-button (click)="toggle(); statusByOrder()">Find Orders</button>
+  <app-spinner [complete]="isComplete"></app-spinner>
+
+  <!--Получение одного заказа-->
+  <div *ngIf="orderForGet">
+    <h3>Get Order</h3>
+    <p>ID: {{orderForGet.id}}</p>
+    <p>PetId: {{orderForGet.petId}}</p>
+    <p>Quantity: {{orderForGet.quantity}}</p>
+    <p>ShipDate: {{orderForGet.shipDate}}</p>
+    <p>Status: {{orderForGet.status}}</p>
+    <p>Complete: {{orderForGet.complete}}</p>
+    <button mat-button (click)="orderForGet = null" color="warn">Clear</button>
+  </div>
+
+  <!--Создание нового заказа-->
+  <div [ngClass]="{invisible: visibility}">
+    <h3>Find Orders by Status: </h3>
+    <button mat-button (click)="toggle()" color="warn">Clear</button>
+    <ng-template [ngIf]="inventories">
+      <p *ngFor="let item of inventories">{{ item }}</p>
+    </ng-template>
+  </div>
+</div>
