@@ -17,7 +17,14 @@ import {RegisterService} from './services/register.service';
 import {PetComponent} from './pages/pet/pet.component';
 import {OrderComponent} from './pages/order/order.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatDialogModule, MatFormFieldModule, MatMenuModule, MatProgressSpinnerModule, MatSliderModule} from '@angular/material';
+import {
+  MatDialogModule,
+  MatFormFieldModule,
+  MatMenuModule,
+  MatProgressSpinnerModule,
+  MatSliderModule,
+  MatTooltipModule
+} from '@angular/material';
 import {InputComponent} from './components/input/input.component';
 import {MyNavComponent} from './components/my-nav/my-nav.component';
 import {LayoutModule} from '@angular/cdk/layout';
@@ -92,7 +99,8 @@ export function initFactory(config: AppConfig): () => Promise<boolean> {
     MatTableModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTooltipModule
   ],
   providers: [
     AppConfig,

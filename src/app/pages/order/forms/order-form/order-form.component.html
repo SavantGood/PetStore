@@ -39,7 +39,9 @@
           (click)="save()"
           [disabled]="orderId.invalid"
           cdkFocusInitial>
-    {{ isEdit ? 'Update' : 'Create' }}
+    <span [matTooltip]="orderId.invalid ? 'Enter Order ID' : ''">
+      {{ isEdit ? 'Update' : 'Create' }}
+    </span>
   </button>
   <button mat-button (click)="close()" color="warn">Cancel</button>
 </div>

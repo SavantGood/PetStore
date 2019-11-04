@@ -27,7 +27,9 @@
     mat-button (click)="save()"
     [disabled]="petId.invalid"
     cdkFocusInitial>
-    {{ isEdit ? 'Update' : 'Create' }}
+    <span [matTooltip]="petId.invalid ? 'Enter Pet ID' : ''">
+      {{ isEdit ? 'Update' : 'Create' }}
+    </span>
   </button>
   <button mat-button (click)="close()" color="warn">Cancel</button>
 </div>
