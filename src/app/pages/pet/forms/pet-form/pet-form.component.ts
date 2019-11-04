@@ -12,6 +12,8 @@ import {SnackBarService} from '../../../../services/snack-bar.service';
 export class PetFormComponent {
   // Флаг для Update //
   public isEdit = false;
+  // Флаг для спинера //
+  public isComplete = true;
   // Опции для select //
   public optionsForPet = ['available', 'pending', 'sold'];
   // Модель питомца //
@@ -31,28 +33,32 @@ export class PetFormComponent {
   }
 
   // Выход из далогового окна //
-  public onNoClick(): void {
+  public close(): void {
     this.dialogRef.close();
   }
 
   // Сохранение изменений //
   public save(): void {
+    this.isComplete = false;
+    const alertText = 'Pet with ID:' + this.petModel.id + (this.isEdit ? ' update' : ' create') + '.';
     if (this.isEdit) {
       this.petService.updatePet(this.petModel).subscribe(() => {
-        this.snackBarService.openSnackBar(
-          'Pet with ID: ' + this.petModel.id + ' update', 'ok'
-        );
-        this.dialogRef.close();
+        this.closeDialogWithAlert(alertText);
       }, error => {
         this.snackBarService.openSnackBar(error.statusText, 'ok');
+        this.isComplete = true;
       });
     } else {
       this.petService.createPet(this.petModel).subscribe(() => {
-        this.snackBarService.openSnackBar(
-          'Pet with ID: ' + this.petModel.id + ' create', 'ok'
-        );
-        this.dialogRef.close();
+        this.closeDialogWithAlert(alertText);
+      }, () => {
+        this.isComplete = true;
       });
     }
+  }
+
+  private closeDialogWithAlert(alertText: string) {
+    this.snackBarService.openSnackBar(alertText, 'ok');
+    this.close();
   }
 }

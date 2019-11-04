@@ -37,27 +37,31 @@ export class OrderFormComponent {
   }
 
   // Закрытие диалогового окна //
-  public onNoClick(): void {
+  public close(): void {
     this.dialogRef.close();
   }
 
   // Создание нового заказа //
   public save(): void {
+    this.isComplete = false;
+    const alertText = 'Order with ID: ' + this.orderModel.id + ' ' + (this.isEdit ? 'update' : 'create') + '.';
     if (this.isEdit) {
-      this.isComplete = false;
       this.orderService.updateOrder(this.orderModel).subscribe(() => {
-        this.snackBarService.openSnackBar('Order with ID: ' + this.orderModel.id + ' update.', 'ok');
+        this.closeDialogWithAlert(alertText);
+      }, () => {
         this.isComplete = true;
-        this.dialogRef.close();
       });
     } else {
-      this.isComplete = false;
-      this.orderService.createOrder(this.orderModel).subscribe((order: Order) => {
-        this.orderModel = order;
-        this.snackBarService.openSnackBar('Order with ID: ' + this.orderModel.id + ' create.', 'ok');
+      this.orderService.createOrder(this.orderModel).subscribe(() => {
+        this.closeDialogWithAlert(alertText);
+      }, () => {
         this.isComplete = true;
-        this.dialogRef.close();
       });
     }
+  }
+
+  private closeDialogWithAlert(alertText: string) {
+    this.snackBarService.openSnackBar(alertText, 'ok');
+    this.close();
   }
 }

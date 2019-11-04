@@ -31,19 +31,27 @@ export class PetComponent {
 
   // Получение одного питомца //
   public getPet(): void {
+    if (!this.petId) {
+      this.snackBarService.openSnackBar('Enter Pet ID', 'ok');
+      return;
+    }
     this.isComplete = false;
     this.petService.getPet(this.petId).subscribe((pet: Pet) => {
       this.petForGet = pet;
       this.isComplete = true;
     }, (error: HttpErrorResponse) => {
-      this.snackBarService.openSnackBar(error.statusText, 'ok');
-      this.petForGet = null;
-      this.isComplete = true;
+        this.snackBarService.openSnackBar(error.statusText, 'ok');
+        this.petForGet = null;
+        this.isComplete = true;
     });
   }
 
   // Удаление одного питомца //
   public deletePet(): void {
+    if (!this.petId) {
+      this.snackBarService.openSnackBar('Enter Pet ID', 'ok');
+      return;
+    }
     this.isComplete = false;
     this.petService.deletePet(this.petId).subscribe(() => {
       this.snackBarService.openSnackBar('Pet with ID: ' + this.petId + ' delete.', 'ok');

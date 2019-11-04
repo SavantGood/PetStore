@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
-import {ConfigService} from '../../services/config.service';
+import {AppState} from '../../app.state';
 
 @Component({
   selector: 'app-my-nav',
@@ -17,11 +17,11 @@ export class MyNavComponent implements OnInit {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private configService: ConfigService) {}
+  constructor(private breakpointObserver: BreakpointObserver, private appState: AppState) {}
 
   ngOnInit(): void {
     this.username = localStorage.getItem('token');
-    this.configService.username.subscribe(result => {
+    this.appState.username.subscribe(result => {
       this.username = result;
     });
   }

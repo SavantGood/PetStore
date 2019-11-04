@@ -3,7 +3,7 @@ import {Order} from '../../models/order';
 import {StoreService} from '../../services/store.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {SnackBarService} from '../../services/snack-bar.service';
-import {OrderFormComponent} from './froms/order-form/order-form.component';
+import {OrderFormComponent} from './forms/order-form/order-form.component';
 import {MatDialog} from '@angular/material';
 
 
@@ -29,6 +29,10 @@ export class OrderComponent {
 
   // Получение одного заказа //
   public getOrder(): void {
+    if (!this.orderId) {
+      this.snackBarService.openSnackBar('Enter Order ID', 'ok');
+      return;
+    }
     this.isComplete = false;
     this.storeService.getOrder(this.orderId).subscribe((order: Order) => {
         this.orderForGet = order;
@@ -38,11 +42,15 @@ export class OrderComponent {
         this.snackBarService.openSnackBar(error.statusText, 'ok');
         this.orderForGet = null;
         this.isComplete = true;
-      });
+    });
   }
 
   // Удаление одного заказа //
   public deleteOrder(): void {
+    if (!this.orderId) {
+      this.snackBarService.openSnackBar('Enter Order ID', 'ok');
+      return;
+    }
     this.isComplete = false;
     this.storeService.deleteOrder(this.orderId).subscribe(() => {
       this.snackBarService.openSnackBar('Order with ID: ' + this.orderId + ' delete.', 'ok');

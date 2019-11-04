@@ -7,7 +7,7 @@
   <button mat-button (click)="onShowUpdateOrder()">Update</button>
   <button mat-button (click)="deleteOrder()">Delete</button>
   <button mat-button (click)="toggle(); statusByOrder()">Find Orders</button>
-  <app-spinner [complete]="isComplete"></app-spinner>
+  <app-spinner *ngIf="!isComplete"></app-spinner>
 
   <!--Получение одного заказа-->
   <div *ngIf="orderForGet">

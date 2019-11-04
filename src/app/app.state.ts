@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class ConfigService {
+@Injectable()
+export class AppState {
   public readonly username  = new BehaviorSubject<string>(null);
   public readonly username$ = this.username.asObservable();
 

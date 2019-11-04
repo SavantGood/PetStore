@@ -12,7 +12,7 @@ import {RegisterComponent} from './pages/register/register.component';
 import {LoginService} from './services/login.service';
 import {LogoutComponent} from './pages/logout/logout.component';
 import {LogoutService} from './services/logout.service';
-import {ConfigService} from './services/config.service';
+import {AppState} from './app.state';
 import {RegisterService} from './services/register.service';
 import {PetComponent} from './pages/pet/pet.component';
 import {OrderComponent} from './pages/order/order.component';
@@ -36,7 +36,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {SnackBarService} from './services/snack-bar.service';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import {PetFormComponent} from './pages/pet/forms/pet-form/pet-form.component';
-import { OrderFormComponent } from './pages/order/froms/order-form/order-form.component';
+import { OrderFormComponent } from './pages/order/forms/order-form/order-form.component';
 
 export function initFactory(config: AppConfig): () => Promise<boolean> {
   return () => new Promise((resolve) => {
@@ -100,7 +100,7 @@ export function initFactory(config: AppConfig): () => Promise<boolean> {
     StoreService,
     LoginService,
     LogoutService,
-    ConfigService,
+    AppState,
     RegisterService,
     AuthGuard,
     SnackBarService,

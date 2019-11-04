@@ -13,5 +13,5 @@
   ></app-input>
   <button mat-button (click)="login()">Connect</button>
 </div>
-<app-spinner [complete]="isComplete"></app-spinner>
+<app-spinner *ngIf="!isComplete"></app-spinner>
 

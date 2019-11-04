@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {LogoutService} from '../../services/logout.service';
 import {Router} from '@angular/router';
 import {SnackBarService} from '../../services/snack-bar.service';
-import {ConfigService} from '../../services/config.service';
+import {AppState} from '../../app.state';
 
 @Component({
   selector: 'app-logout',
@@ -16,7 +16,7 @@ export class LogoutComponent {
     private logoutServices: LogoutService,
     private router: Router,
     private snackBarService: SnackBarService,
-    private configService: ConfigService
+    private appState: AppState
   ) {
   }
 
@@ -27,7 +27,7 @@ export class LogoutComponent {
     this.router.navigate(['/login']);
     this.logoutServices.logout().subscribe(() => {
       this.username = null;
-      this.configService.username.next(this.username);
+      this.appState.username.next(this.username);
     });
   }
 }

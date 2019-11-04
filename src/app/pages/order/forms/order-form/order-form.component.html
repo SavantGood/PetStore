@@ -1,0 +1,46 @@
+<h1 mat-dialog-title>{{isEdit ? 'Update' : 'Create'}}</h1>
+<div mat-dialog-content>
+  <app-input
+    [active]="isEdit"
+    [placeholder]="'Order ID: '"
+    [(ngModel)]="orderModel.id"
+    [value]="orderModel.id"
+    #orderId="ngModel"
+    required
+    ngDefaultControl
+  ></app-input>
+  <app-input
+    [placeholder]="'Pet ID: '"
+    [(ngModel)]="orderModel.petId"
+    [value]="orderModel.petId"
+    ngDefaultControl
+  ></app-input>
+  <app-input
+    [placeholder]="'Quantity: '"
+    [(ngModel)]="orderModel.quantity"
+    [value]="orderModel.quantity"
+    ngDefaultControl
+  ></app-input>
+  <app-select
+    [(ngModel)]="orderModel.status"
+    [title]="'Status: '"
+    [options]="optionsForOrderStatus"
+    ngDefaultControl
+  ></app-select>
+  <app-select
+    [(ngModel)]="orderModel.complete"
+    [title]="'Complete: '"
+    [options]="optionForOrderComplete"
+    ngDefaultControl
+  ></app-select>
+</div>
+<div mat-dialog-actions>
+  <button mat-button
+          (click)="save()"
+          [disabled]="orderId.invalid"
+          cdkFocusInitial>
+    {{ isEdit ? 'Update' : 'Create' }}
+  </button>
+  <button mat-button (click)="close()" color="warn">Cancel</button>
+</div>
+<app-spinner *ngIf="!isComplete"></app-spinner>

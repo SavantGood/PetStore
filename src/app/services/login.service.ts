@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {User} from '../models/user';
 import {Observable} from 'rxjs';
 import {AppConfig} from '../app.config';
-import {ConfigService} from './config.service';
+import {AppState} from '../app.state';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +14,11 @@ export class LoginService {
   constructor(
     private http: HttpClient,
     private appConfig: AppConfig,
-    private configService: ConfigService
+    private appState: AppState
   ) { }
 
   login(username: string, password: string): Observable<User> {
-    this.configService.username.next(username);
+    this.appState.username.next(username);
     return this.http.get<User>(this.LOGIN_URL + 'login?username=' + username + '&password=' + password);
   }
 }
